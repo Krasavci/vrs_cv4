@@ -59,6 +59,86 @@ void LED_init(void){
 	GPIO_Init(GPIOA, &GPIOinitS);
 }
 
+void blik(AD_value){
+	if (AD_value < 500){
+		int j=0;
+		while (j<400000){
+			GPIO_SetBits(GPIOA, GPIO_Pin_5);
+			j++;
+		}
+		while (j>0){
+			GPIO_ResetBits(GPIOA, GPIO_Pin_5);
+			j--;
+		}
+	}
+	if (AD_value < 1000 && AD_value > 500){
+		int j=0;
+		while (j<300000){
+			GPIO_SetBits(GPIOA, GPIO_Pin_5);
+			j++;
+		}
+		while (j>0){
+			GPIO_ResetBits(GPIOA, GPIO_Pin_5);
+			j--;
+		}
+	}
+	if (AD_value < 1500 && AD_value > 1000){
+		int j=0;
+		while (j<200000){
+			GPIO_SetBits(GPIOA, GPIO_Pin_5);
+			j++;
+		}
+		while (j>0){
+			GPIO_ResetBits(GPIOA, GPIO_Pin_5);
+			j--;
+		}
+	}
+	if (AD_value < 2000 && AD_value > 1500){
+		int j=0;
+		while (j<100000){
+			GPIO_SetBits(GPIOA, GPIO_Pin_5);
+			j++;
+		}
+		while (j>0){
+			GPIO_ResetBits(GPIOA, GPIO_Pin_5);
+			j--;
+		}
+	}
+	if (AD_value < 2500 && AD_value > 2000){
+		int j=0;
+		while (j<50000){
+			GPIO_SetBits(GPIOA, GPIO_Pin_5);
+			j++;
+		}
+		while (j>0){
+			GPIO_ResetBits(GPIOA, GPIO_Pin_5);
+			j--;
+		}
+	}
+	if (AD_value < 3000 && AD_value > 2500){
+		int j=0;
+		while (j<10000){
+			GPIO_SetBits(GPIOA, GPIO_Pin_5);
+			j++;
+		}
+		while (j>0){
+			GPIO_ResetBits(GPIOA, GPIO_Pin_5);
+			j--;
+		}
+	}
+	if (AD_value > 3000){
+		int j=0;
+		while (j<1000){
+			GPIO_SetBits(GPIOA, GPIO_Pin_5);
+			j++;
+		}
+		while (j>0){
+			GPIO_ResetBits(GPIOA, GPIO_Pin_5);
+			j--;
+		}
+	}
+}
+
 int main(void)
 {
   int i = 0;
@@ -73,7 +153,8 @@ int main(void)
 	  ADC_SoftwareStartConv(ADC1);
   	  while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC)){}
   	  AD_value=ADC_GetConversionValue(ADC1);
-    	  }
+  	  blik(AD_value);
+      }
 	return 0;
 }
 
