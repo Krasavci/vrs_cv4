@@ -9,28 +9,9 @@
 /* Private variables */
 /* Private function prototypes */
 /* Private functions */
-
-
-/**
-**===========================================================================
-**
-**  Abstract: main program
-**
-**===========================================================================
-*/
-int main(void)
-{
-  int i = 0;
-
-
-
-  /* Infinite loop */
-  while (1)
-  {
-	 int AD_value= 0;
-	i++;
-	void adc_init(void)
+void adc_init(void)
 	  {
+	//int AD_value;
 	  GPIO_InitTypeDef GPIO_InitStructure;
 	  ADC_InitTypeDef ADC_InitStructure;
 	  /* Enable GPIO clock */
@@ -56,7 +37,7 @@ int main(void)
 	  ADC_InitStructure.ADC_NbrOfConversion = 1;
 	  ADC_Init(ADC1, &ADC_InitStructure);
 	  /* ADCx regular channel8 configuration */
-	  ADC_RegularChannelConfig(ADC1, ADC_Channel_2, 1, ADC_SampleTime_16Cycles);
+	  ADC_RegularChannelConfig(ADC1, ADC_Channel_1, 1, ADC_SampleTime_16Cycles);
 	  /* Enable the ADC */
 	  ADC_Cmd(ADC1, ENABLE);
 	  /* Wait until the ADC1 is ready */
@@ -67,13 +48,33 @@ int main(void)
 	  ADC_SoftwareStartConv(ADC1);
 	  }
 
-	  //Spustenie prevodu:
-	  /* Start ADC Software Conversion */
+void LED_init(void){
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
+	GPIO_InitTypeDef GPIOinitS;
+	GPIOinitS.GPIO_Pin = GPIO_Pin_5;
+	GPIOinitS.GPIO_Mode = GPIO_Mode_OUT;
+	GPIOinitS.GPIO_OType = GPIO_OType_PP;
+	GPIOinitS.GPIO_PuPd = GPIO_PuPd_UP;
+	GPIOinitS.GPIO_Speed = GPIO_Speed_40MHz;
+	GPIO_Init(GPIOA, &GPIOinitS);
+}
+
+int main(void)
+{
+  int i = 0;
+  int AD_value;
+
+  adc_init();
+  LED_init();
+  /* Infinite loop */
+  //Spustenie prevodu:
+  	  /* Start ADC Software Conversion */
+  while(1){
 	  ADC_SoftwareStartConv(ADC1);
-	  while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC)){}
-	  AD_value=ADC_GetConversionValue(ADC1);
-  }
-  return 0;
+  	  while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC)){}
+  	  AD_value=ADC_GetConversionValue(ADC1);
+    	  }
+	return 0;
 }
 
 #ifdef  USE_FULL_ASSERT
