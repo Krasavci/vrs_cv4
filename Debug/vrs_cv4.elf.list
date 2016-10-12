@@ -1522,10 +1522,10 @@ void adc_init(void)
  8000898:	480e      	ldr	r0, [pc, #56]	; (80008d4 <adc_init+0xa0>)
  800089a:	f7ff fc6f 	bl	800017c <ADC_Init>
 	  /* ADCx regular channel8 configuration */
-	  ADC_RegularChannelConfig(ADC1, ADC_Channel_1, 1, ADC_SampleTime_16Cycles);
+	  ADC_RegularChannelConfig(ADC1, ADC_Channel_2, 1, ADC_SampleTime_16Cycles);
  800089e:	2302      	movs	r3, #2
  80008a0:	2201      	movs	r2, #1
- 80008a2:	2101      	movs	r1, #1
+ 80008a2:	2102      	movs	r1, #2
  80008a4:	480b      	ldr	r0, [pc, #44]	; (80008d4 <adc_init+0xa0>)
  80008a6:	f7ff fcf9 	bl	800029c <ADC_RegularChannelConfig>
 	  /* Enable the ADC */

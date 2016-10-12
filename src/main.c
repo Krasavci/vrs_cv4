@@ -37,7 +37,7 @@ void adc_init(void)
 	  ADC_InitStructure.ADC_NbrOfConversion = 1;
 	  ADC_Init(ADC1, &ADC_InitStructure);
 	  /* ADCx regular channel8 configuration */
-	  ADC_RegularChannelConfig(ADC1, ADC_Channel_1, 1, ADC_SampleTime_16Cycles);
+	  ADC_RegularChannelConfig(ADC1, ADC_Channel_2, 1, ADC_SampleTime_16Cycles);
 	  /* Enable the ADC */
 	  ADC_Cmd(ADC1, ENABLE);
 	  /* Wait until the ADC1 is ready */
